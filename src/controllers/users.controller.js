@@ -19,7 +19,7 @@ exports.createUser = async (req, res) => {
 
 exports.readAllUsers = async (req, res) => {
   try {
-    const users = await userModel.findUser();
+    const users = await userModel.findAllUsers();
     return res.json({
       success: true,
       message: "Response read all users",
@@ -33,9 +33,18 @@ exports.readAllUsers = async (req, res) => {
   }
 };
 
-exports.readUserById = (req, res) => {
-  return res.json({
-    success: true,
-    message: "Hello " + req.params.id,
-  });
+exports.readUserById = async(req, res) => {
+  try {
+    const user = await userModel.findUserById(req.params)
+    return res.json({
+      success: true,
+      message: "Response read user by id",
+      results: user.rows[0],
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: `Error: ${err.message}`,
+    });
+  }
 };

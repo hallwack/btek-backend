@@ -8,7 +8,13 @@ exports.insertUser = (data) => {
   return db.query(sql, params);
 };
 
-exports.findUser = () => {
+exports.findAllUsers = () => {
   const sql = `SELECT * FROM ${table}`;
   return db.query(sql);
+};
+
+exports.findUserById = (data) => {
+  const sql = `SELECT * FROM ${table} WHERE "id" = $1`;
+  const params = [data.id];
+  return db.query(sql, params);
 };
