@@ -54,7 +54,6 @@ exports.updateUserById = async (req, res) => {
     const { id } = req.params;
     const { email, password } = req.body;
     const user = await userModel.updateUserById(id, email, password);
-    console.log(user.oid);
     return res.json({
       success: true,
       message: "Updated User by Id",
