@@ -14,11 +14,17 @@ const userValidation = [
 ];
 
 const validate = (req, res, next) => {
-  const errors = validationResult(req);
-  if (errors.isEmpty()) return next();
-  return res.status(422).json({
-    errors: errors.array(),
-  });
+  try {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) return next();
+    return res.status(422).json({
+      errors: errors.array(),
+    });
+  } catch (err) {
+    return res.status(400).json({
+      errors: err,
+    });
+  }
 };
 
 module.exports = {
