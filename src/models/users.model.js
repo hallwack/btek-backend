@@ -19,9 +19,9 @@ exports.findUserById = (data) => {
   return db.query(sql, params);
 };
 
-exports.updateUserById = (data) => {
+exports.updateUserById = (id, email, password) => {
   const sql = `UPDATE ${table} SET email = $2, password = $3 WHERE id = $1 RETURNING *`;
-  const params = [data.id, data.email, data.password];
+  const params = [id, email, password];
   return db.query(sql, params);
 };
 
