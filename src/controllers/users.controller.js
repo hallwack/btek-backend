@@ -53,11 +53,11 @@ exports.updateUserById = async (req, res) => {
   try {
     const { id } = req.params;
     const { email, password } = req.body;
-    const user = await userModel.updateUserById(id, email, password);
+    const user = await userModel.updateUserById([id, email, password]);
     return res.json({
       success: true,
       message: "Updated User by Id",
-      results: user.rows[0],
+      results: user.rows,
     });
   } catch (err) {
     return res.status(500).json({
