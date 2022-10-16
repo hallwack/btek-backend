@@ -7,5 +7,6 @@ users.get("/", userController.readAllUsers);
 users.post("/", userController.createUser);
 users.get("/:id", userController.readUserById);
 users.put("/:id", userController.updateUserById);
+users.delete("/:id", userController.deleteUserById);
 
 module.exports = users;

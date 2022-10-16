@@ -67,3 +67,18 @@ exports.updateUserById = async (req, res) => {
   }
 };
 
+exports.deleteUserById = async (req, res) => {
+  try {
+    const user = await userModel.deleteUserById(req.params);
+    return res.json({
+      success: true,
+      message: "Delete user by id",
+      results: user.rows[0],
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: `Error: ${err.message}`,
+    });
+  }
+};
