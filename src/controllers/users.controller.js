@@ -22,7 +22,7 @@ exports.readAllUsers = async (req, res) => {
     const users = await userModel.findAllUsers();
     return res.json({
       success: true,
-      message: "Response read all users",
+      message: "Read all users successfully",
       results: users.rows,
     });
   } catch (err) {
@@ -38,7 +38,7 @@ exports.readUserById = async (req, res) => {
     const user = await userModel.findUserById(req.params);
     return res.json({
       success: true,
-      message: "Response read user by id",
+      message: "Read user by Id successfully",
       results: user.rows[0],
     });
   } catch (err) {
@@ -56,7 +56,7 @@ exports.updateUserById = async (req, res) => {
     const user = await userModel.updateUserById(id, email, password);
     return res.json({
       success: true,
-      message: "Updated User by Id",
+      message: "Updated user by Id successfully",
       results: user.rows,
     });
   } catch (err) {
@@ -72,7 +72,7 @@ exports.deleteUserById = async (req, res) => {
     const user = await userModel.deleteUserById(req.params);
     return res.json({
       success: true,
-      message: "Delete user by id",
+      message: "Delete user by Id successfully",
       results: user.rows[0],
     });
   } catch (err) {
