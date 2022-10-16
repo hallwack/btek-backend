@@ -33,9 +33,9 @@ exports.readAllUsers = async (req, res) => {
   }
 };
 
-exports.readUserById = async(req, res) => {
+exports.readUserById = async (req, res) => {
   try {
-    const user = await userModel.findUserById(req.params)
+    const user = await userModel.findUserById(req.params);
     return res.json({
       success: true,
       message: "Response read user by id",
@@ -48,3 +48,22 @@ exports.readUserById = async(req, res) => {
     });
   }
 };
+
+exports.updateUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { email, password } = req.body;
+    const user = await userModel.updateUserById(id, email, password);
+    return res.json({
+      success: true,
+      message: "Updated User by Id",
+      results: user.rows[0],
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: `Error: ${err.message}`,
+    });
+  }
+};
+
