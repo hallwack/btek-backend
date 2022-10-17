@@ -1,17 +1,21 @@
-const { check, validationResult } = require("express-validator");
+const { body, validationResult, param } = require("express-validator");
 
 const userValidator = [
-  check("email")
+  body("email")
     .normalizeEmail()
     .isEmail()
     .notEmpty()
     .withMessage("Provide valid email"),
-  check("password")
+  body("password")
     .isLength({ min: 8 })
     .withMessage("Password must be 8 characters or more")
     .notEmpty()
     .withMessage("Password is missing"),
 ];
+
+const paramsUUID = [
+  param("id").isUUID(4).withMessage("Invalid Id")
+]
 
 const validate = (req, res, next) => {
   try {
@@ -33,5 +37,6 @@ const validate = (req, res, next) => {
 
 module.exports = {
   userValidator,
+  paramsUUID,
   validate,
 };
