@@ -9,8 +9,13 @@ exports.insertUser = (data) => {
 };
 
 exports.findAllUsers = () => {
-  const sql = `SELECT * FROM ${table}`;
-  return db.query(sql);
+  const sql = `SELECT * FROM ${table} 
+  WHERE "${data.searchBy}" 
+  LIKE '%${data.search}%' 
+  ORDER BY "${data.sortBy}" ${data.reverse ? "DESC" : "ASC"} 
+  LIMIT $1 OFFSET $2`;
+  const params = [data.limit, data.offset];
+  return db.query(sql, params);
 };
 
 exports.findUserById = (data) => {
@@ -29,4 +34,11 @@ exports.deleteUserById = (data) => {
   const sql = `DELETE FROM ${table} WHERE id = $1 RETURNING *`;
   const params = [data.id];
   return db.query(sql, params);
+};
+
+exports.selectAll = (data) => {
+  const sql = `SELECT * FROM ${table} 
+  WHERE "${data.searchBy}" 
+  LIKE '%${data.search}%'`;
+  db.query(sql);
 };

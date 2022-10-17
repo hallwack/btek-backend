@@ -5,9 +5,10 @@ const {
   userValidator,
   validate,
   paramsUUID,
+  paging,
 } = require("../middlewares/validation.middleware");
 
-users.get("/", userController.readAllUsers);
+users.get("/", paging, validate, userController.readAllUsers);
 users.post("/", userValidator, validate, userController.createUser);
 users.get("/:id", paramsUUID, validate, userController.readUserById);
 users.put(
