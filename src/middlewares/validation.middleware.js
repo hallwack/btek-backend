@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator");
 
-const userValidation = [
+const userValidator = [
   check("email")
     .normalizeEmail()
     .isEmail()
@@ -8,7 +8,7 @@ const userValidation = [
     .withMessage("Provide valid email"),
   check("password")
     .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 character")
+    .withMessage("Password must be 8 characters or more")
     .notEmpty()
     .withMessage("Password is missing"),
 ];
@@ -17,17 +17,21 @@ const validate = (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (errors.isEmpty()) return next();
-    return res.status(422).json({
-      errors: errors.array(),
+    return res.status(400).json({
+      success: false,
+      message: "Validation Error",
+      results: errors.array(),
     });
   } catch (err) {
     return res.status(400).json({
-      errors: err,
+      success: false,
+      message: "Validation Cannot Work Correctly",
+      results: err.message,
     });
   }
 };
 
 module.exports = {
-  userValidation,
+  userValidator,
   validate,
 };
