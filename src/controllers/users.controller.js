@@ -26,11 +26,13 @@ exports.readAllUsers = async (req, res) => {
       page: req.query.page,
       limit: req.query.limit,
     };
+
     pageInfo.totalPage = Math.ceil(rowCount / req.query.limit);
     pageInfo.nextPage =
       req.query.page < pageInfo.totalPage ? req.query.page + 1 : null;
     pageInfo.previousPage = req.query.page > 1 ? req.query.page - 1 : null;
     pageInfo.totalData = rowCount;
+
     return res.json({
       success: true,
       message: "Read all users successfully",
