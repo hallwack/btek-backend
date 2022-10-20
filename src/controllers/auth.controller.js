@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
 
       if (valid) {
         const { id } = user.rows[0];
-        const token = jwt.sign({ id }, process.env.APP_SECRET || "default-key");
+        const token = jwt.sign(id, process.env.APP_SECRET || "default-key");
         return res.json({
           success: true,
           message: "Login success",
