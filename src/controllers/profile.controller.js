@@ -2,20 +2,18 @@ const profileModel = require("../models/profile.model");
 
 exports.readProfileById = async (req, res) => {
   try {
-    const profile = await profileModel.selectProfileByUserId(
-      req.params.id || req.userData.id
-    );
+    const userId = req.params.id || req.userData;
+    const profile = await profileModel.selectProfileByUserId(userId);
     if (profile.rowCount) {
       return res.json({
         success: true,
-        message: "Profile user with id" + req.params.id,
+        message: `Profile user with id ${userId}`,
         results: profile.rows[0],
       });
     }
     return res.status(400).json({
       success: false,
-      message:
-        "User with id " + req.params.id || req.userData.id + " not found!",
+      message: `User with id ${userId} not found!`,
     });
   } catch (err) {
     return res.status(500).json({
@@ -28,7 +26,7 @@ exports.readProfileById = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   try {
     const profile = await profileModel.updateProfileByUserId(
-      req.userData.id,
+      req.userData,
       req.body
     );
 
