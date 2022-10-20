@@ -20,9 +20,37 @@ CREATE TABLE
 
 alter table "users" add primary key ("id");
 
+CREATE TABLE
+    "profile" (
+        "id" VARCHAR(255) default uuid_generate_v4(),
+        "fullname" VARCHAR(255),
+        "picture" VARCHAR(255),
+        "birthDate" VARCHAR(255),
+        "userId" VARCHAR(255),
+        "createdAt" TIMESTAMPTZ default now(),
+        "updatedAt" TIMESTAMPTZ
+    );
+
+alter table "profile" add primary key ("id");
+
 CREATE TRIGGER SET_TIMESTAMP 
 	before
 	update on "users" for each row
 	execute
 	    procedure trigger_set_timestamp();
 ; 
+
+;
+
+;
+
+CREATE TRIGGER SET_TIMESTAMP 
+	before
+	update on "profile" for each row
+	execute
+	    procedure trigger_set_timestamp();
+; 
+
+;
+
+;
