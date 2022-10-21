@@ -8,12 +8,6 @@ exports.forget = (data) => {
   return db.query(sql, params);
 };
 
-exports.resetPassword = (email, password) => {
-  const sql = 'UPDATE "users" SET password = $2 WHERE email = $1 RETURNING *';
-  const params = [email, password];
-  return db.query(sql, params);
-};
-
 exports.getForgotPassword = (data) => {
   const sql = `SELECT * FROM "${table}" WHERE "code" = $1 AND email = $2`;
   const params = [data.code, data.email];
