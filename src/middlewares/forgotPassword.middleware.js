@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 
-exports.resetPassword = [
+exports.forgotPassword = [
   body("email")
     .normalizeEmail()
     .isEmail()
