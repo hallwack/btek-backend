@@ -17,13 +17,13 @@ auth.post(
   "/forgot-password",
   forgotPassword,
   validate,
-  require("../controllers/passwordSettings.controller").forgotPassword
+  require("../controllers/auth.controller").forgotPassword
 );
 auth.post(
   "/reset-password",
   resetPassword,
   validate,
-  require("../controllers/passwordSettings.controller").resetPassword
+  require("../controllers/auth.controller").resetPassword
 );
 
 module.exports = auth;
