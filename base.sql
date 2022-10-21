@@ -1,6 +1,4 @@
--- Active: 1665858920600@@127.0.0.1@5432@btek-course@public
-
-CREATE EXTENSION 'uuid-ossp';
+CREATE EXTENSION "uuid-ossp";
 
 CREATE OR REPLACE FUNCTION TRIGGER_SET_TIMESTAMP() 
 RETURNS TRIGGER AS $$ 
@@ -9,81 +7,50 @@ RETURNS TRIGGER AS $$
 	END $$ LANGUAGE 
 PLPGSQL; 
 
-CREATE TABLE
-    "users" (
-        "id" VARCHAR(255) default uuid_generate_v4(),
-        "email" VARCHAR(255),
-        "password" VARCHAR(255),
-        "createdAt" TIMESTAMPTZ default now(),
-        "updatedAt" TIMESTAMPTZ
-    );
+CREATE TABLE "users"(
+    "id" VARCHAR(255) DEFAULT uuid_generate_v4(),
+    "email" VARCHAR(255),
+    "password" VARCHAR(255),
+    "createdAt" TIMESTAMPTZ DEFAULT now(),
+    "updatedAt" TIMESTAMPTZ
+);
 
-alter table "users" add primary key ("id");
+ALTER TABLE "users" ADD PRIMARY KEY ("id");
 
-CREATE TABLE
-    "profile" (
-        "id" VARCHAR(255) default uuid_generate_v4(),
-        "fullname" VARCHAR(255),
-        "picture" VARCHAR(255),
-        "birthDate" VARCHAR(255),
-        "userId" VARCHAR(255),
-        "createdAt" TIMESTAMPTZ default now(),
-        "updatedAt" TIMESTAMPTZ
-    );
+CREATE TABLE "profile"(
+  "id" VARCHAR(255) DEFAULT uuid_generate_v4(),
+  "fullName" VARCHAR(255),
+  "picture" VARCHAR(255),
+  "birthDate" VARCHAR(255),
+  "userId" VARCHAR(255), 
+  "createdAt" TIMESTAMPTZ DEFAULT now(),
+  "updatedAt" TIMESTAMPTZ
+);
 
-alter table "profile" add primary key ("id");
+ALTER TABLE "profile" ADD PRIMARY KEY ("id");
 
-CREATE TABLE
-    "forgotPassword" (
-        "code" VARCHAR(255),
-        "email" VARCHAR(255),
-        "userId" VARCHAR(255),
-        "createdAt" TIMESTAMPTZ DEFAULT now(),
-        "updatedAt" TIMESTAMPTZ
-    );
+CREATE TABLE "forgotPassword"(
+  "id" VARCHAR(255) DEFAULT uuid_generate_v4(),
+  "code" VARCHAR(255) DEFAULT uuid_generate_v4(),
+  "email" VARCHAR(255),
+  "userId" VARCHAR(255),
+  "createdAt" TIMESTAMPTZ DEFAULT now(),
+  "updatedAt" TIMESTAMPTZ
+);
 
-CREATE TRIGGER SET_TIMESTAMP 
-	before
-	update on "users" for each row
-	execute
-	    procedure trigger_set_timestamp();
-; 
+ALTER TABLE "forgotPassword" ADD PRIMARY KEY ("id");
 
-;
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON "forgotPassword"
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
 
-;
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON "users"
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
 
-;
-
-;
-
-CREATE TRIGGER SET_TIMESTAMP 
-	before
-	update on "profile" for each row
-	execute
-	    procedure trigger_set_timestamp();
-; 
-
-;
-
-;
-
-;
-
-;
-
-CREATE TRIGGER SET_TIMESTAMP 
-	before
-	update
-	    on "forgotPassword" for each row
-	execute
-	    procedure trigger_set_timestamp();
-; 
-
-;
-
-;
-
-;
-
-;
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON "profile"
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
