@@ -6,7 +6,7 @@ exports.login = [
     .isEmail()
     .withMessage("Provide valid email")
     .notEmpty()
-    .withMessage("Provide valid email"),
+    .withMessage("Email must be input"),
   /* body("password")
     .isStrongPassword({
       minLength: 8,
