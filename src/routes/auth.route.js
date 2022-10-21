@@ -3,7 +3,6 @@ const { validate } = require("../middlewares/validation.middleware");
 
 const auth = require("express").Router();
 
-const authMiddleware = require("../middlewares/auth.middleware");
 const { resetPassword } = require("../middlewares/resetPassword.middleware");
 const { forgotPassword } = require("../middlewares/forgotPassword.middleware");
 

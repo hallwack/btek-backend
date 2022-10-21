@@ -15,14 +15,9 @@ const generateCode = () => {
 
 exports.forgotPassword = async (req, res) => {
   try {
-    // nerima email
-    // create forgotPassword ke tabel password
-    // passing code baru
-
     const { email } = req.body;
     const getUserByEmail = await userModel.selectUserByEmail(email);
     const id = getUserByEmail.rows[0].id;
-    /* console.log(id) */
 
     const forgotPassword = await forgotPasswordModel.forget(
       generateCode(),
@@ -46,12 +41,6 @@ exports.forgotPassword = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
   try {
-    // get req.body (code, email. newPassword, confirmPassword)
-    // validation
-    // newPassword == confirmPassword
-    // sesuaikan code dengan yang ada di tabel forgotPassword
-    // update forgotPassword updatedAt untuk code hanya sekali dipakai (if updatedAt true => code cannot used)
-    // update password user
     const { code, email, newPassword, confirmPassword } = req.body;
     const getPassword = await forgotPasswordModel.getForgotPassword(code);
 

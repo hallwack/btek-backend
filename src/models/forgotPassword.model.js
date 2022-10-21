@@ -9,7 +9,7 @@ exports.forget = (code, email, userId) => {
 };
 
 exports.resetPassword = (email, password) => {
-  const sql = 'UPDATE "users" SET password = $2 WHERE email = $1 RETURNING *';
+  const sql = "UPDATE \"users\" SET password = $2 WHERE email = $1 RETURNING *";
   const params = [email, password];
   return db.query(sql, params);
 };
