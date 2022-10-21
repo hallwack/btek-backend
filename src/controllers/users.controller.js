@@ -74,7 +74,7 @@ exports.updateUserById = async (req, res) => {
     return res.json({
       success: true,
       message: "Updated user by Id successfully",
-      results: user.rows,
+      results: user.rows[0],
     });
   } catch (err) {
     return res.status(500).json({
