@@ -5,6 +5,7 @@ const auth = require("express").Router();
 
 const authMiddleware = require("../middlewares/auth.middleware");
 const { resetPassword } = require("../middlewares/resetPassword.middleware");
+const { forgotPassword } = require("../middlewares/forgotPassword.middleware");
 
 auth.post(
   "/login",
@@ -15,6 +16,8 @@ auth.post(
 auth.post("/register", require("../controllers/auth.controller").register);
 auth.post(
   "/forgot-password",
+  forgotPassword,
+  validate,
   require("../controllers/passwordSettings.controller").forgotPassword
 );
 auth.post(
