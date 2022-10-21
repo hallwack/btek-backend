@@ -4,6 +4,7 @@ const { validate } = require("../middlewares/validation.middleware");
 const auth = require("express").Router();
 
 const authMiddleware = require("../middlewares/auth.middleware");
+const { resetPassword } = require("../middlewares/resetPassword.middleware");
 
 auth.post(
   "/login",
@@ -18,6 +19,8 @@ auth.post(
 );
 auth.post(
   "/reset-password",
+  resetPassword,
+  validate,
   require("../controllers/passwordSettings.controller").resetPassword
 );
 
