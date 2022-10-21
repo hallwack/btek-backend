@@ -7,3 +7,15 @@ exports.forget = (code, email, userId) => {
   const params = [code, email, userId];
   return db.query(sql, params);
 };
+
+exports.resetPassword = (email, password) => {
+  const sql = "UPDATE \"users\" SET password = $2 WHERE email = $1 RETURNING *";
+  const params = [email, password];
+  return db.query(sql, params);
+};
+
+exports.getForgotPassword = (code) => {
+  const sql = `SELECT * FROM "${table}" WHERE "code" = $1`;
+  const params = [code];
+  return db.query(sql, params);
+};
