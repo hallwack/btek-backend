@@ -16,7 +16,7 @@ const auth = (req, res, next) => {
     } else {
       return res.status(401).json({
         success: false,
-        message: `Unauthorized`,
+        message: "Unauthorized",
       });
     }
   } catch (err) {
