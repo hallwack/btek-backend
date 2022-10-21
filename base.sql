@@ -38,7 +38,8 @@ CREATE TABLE
         "code" VARCHAR(255),
         "email" VARCHAR(255),
         "userId" VARCHAR(255),
-        "createdAt" TIMESTAMPTZ DEFAULT now()
+        "createdAt" TIMESTAMPTZ DEFAULT now(),
+        "updatedAt" TIMESTAMPTZ
     );
 
 CREATE TRIGGER SET_TIMESTAMP 
@@ -54,12 +55,32 @@ CREATE TRIGGER SET_TIMESTAMP
 
 ;
 
+;
+
 CREATE TRIGGER SET_TIMESTAMP 
 	before
 	update on "profile" for each row
 	execute
 	    procedure trigger_set_timestamp();
 ; 
+
+;
+
+;
+
+;
+
+;
+
+CREATE TRIGGER SET_TIMESTAMP 
+	before
+	update
+	    on "forgotPassword" for each row
+	execute
+	    procedure trigger_set_timestamp();
+; 
+
+;
 
 ;
 
