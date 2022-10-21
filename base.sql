@@ -33,6 +33,14 @@ CREATE TABLE
 
 alter table "profile" add primary key ("id");
 
+CREATE TABLE
+    "forgotPassword" (
+        "code" VARCHAR(255),
+        "email" VARCHAR(255),
+        "userId" VARCHAR(255),
+        "createdAt" TIMESTAMPTZ DEFAULT now()
+    );
+
 CREATE TRIGGER SET_TIMESTAMP 
 	before
 	update on "users" for each row
@@ -44,12 +52,16 @@ CREATE TRIGGER SET_TIMESTAMP
 
 ;
 
+;
+
 CREATE TRIGGER SET_TIMESTAMP 
 	before
 	update on "profile" for each row
 	execute
 	    procedure trigger_set_timestamp();
 ; 
+
+;
 
 ;
 
