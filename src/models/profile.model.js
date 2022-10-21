@@ -3,7 +3,7 @@ const db = require("../helpers/db");
 const table = "profile";
 
 exports.insertProfile = (data) => {
-  const sql = `INSERT INTO ${table} ("fullname", "picture", "birthDate", "userId") VALUES ($1, $2, $3, $4) RETURNING *`;
+  const sql = `INSERT INTO "${table}" ("fullName", "picture", "birthDate", "userId") VALUES ($1, $2, $3, $4) RETURNING *`;
   const params = [data.fullname, data.picture, data.birthDate, data.userId];
   return db.query(sql, params);
 };
