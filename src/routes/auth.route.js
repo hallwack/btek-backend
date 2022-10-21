@@ -14,9 +14,11 @@ auth.post(
 auth.post("/register", require("../controllers/auth.controller").register);
 auth.post(
   "/forgot-password",
-  authMiddleware,
   require("../controllers/passwordSettings.controller").forgotPassword
 );
-auth.post("/reset-password");
+auth.post(
+  "/reset-password",
+  require("../controllers/passwordSettings.controller").resetPassword
+);
 
 module.exports = auth;
