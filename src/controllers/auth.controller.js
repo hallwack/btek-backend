@@ -92,7 +92,7 @@ exports.forgotPassword = async (req, res) => {
     } else {
       return res.status(400).json({
         success: false,
-        message: `Email not found!`,
+        message: "Email not found!",
       });
     }
   } catch (err) {
@@ -141,7 +141,7 @@ exports.resetPassword = async (req, res) => {
     } else {
       return res.status(400).json({
         success: false,
-        message: `Email or code cannot be identified!`,
+        message: "Email or code cannot be identified!",
       });
     }
   } catch (err) {
