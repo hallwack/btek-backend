@@ -55,13 +55,6 @@ exports.resetPassword = async (req, res) => {
     const { code, email, newPassword, confirmPassword } = req.body;
     const getPassword = await forgotPasswordModel.getForgotPassword(code);
 
-    if (email != getPassword.rows[0].email) {
-      return res.status(400).json({
-        success: false,
-        message: "Email not match with Records Data",
-      });
-    }
-
     if (newPassword != confirmPassword) {
       return res.status(400).json({
         success: false,
@@ -69,9 +62,28 @@ exports.resetPassword = async (req, res) => {
       });
     }
 
+    if (getPassword.rows[0].updatedAt) {
+      return res.status(400).json({
+        success: false,
+        message: "Code has been used",
+      });
+    }
+    
+    if (email != getPassword.rows[0].email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email not match with Records Data",
+      });
+    }
+
+    await forgotPasswordModel.updateForgotPassword(
+      getPassword.rows[0].userId,
+      email
+    );
+
     const updateUser = await userModel.updatePassword(
       getPassword.rows[0].userId,
-      newPassword
+      await argon.hash(newPassword)
     );
 
     return res.json({
