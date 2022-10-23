@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Card from "./components/Card";
+import CardTailwind from "./components/CardTailwind";
 import "./styles/App.css";
 
 const App = () => {
@@ -12,16 +14,10 @@ const App = () => {
   }, []);
 
   return (
-    <div className="wrapper">
-      {data.map((data) => {
-        return (
-          <div className="box" key={data.id}>
-            <img src={data.image} alt={data.name} />
-            <p>{data.name}</p>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <Card data={data} />
+      <CardTailwind data={data} />
+    </>
   );
 };
 
