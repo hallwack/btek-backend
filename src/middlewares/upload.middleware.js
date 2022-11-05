@@ -1,5 +1,7 @@
 const multer = require("multer");
 const path = require("node:path");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 const generateCode = () => {
   const digits = "0123456789";
@@ -12,6 +14,12 @@ const generateCode = () => {
   return code;
 };
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 const extension = (mimeType) => {
   const mime = ["image/jpeg", "image/png", "image/webp"];
   const sortedExt = ["jpg", "png", "webp"];
@@ -19,7 +27,19 @@ const extension = (mimeType) => {
   return sortedExt[mime.indexOf(mimeType)];
 };
 
-const storage = multer.diskStorage({
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    const ext = extension(file.mimetype);
+    return {
+      folder: "assets/upload",
+      format: ext,
+      public_id: generateCode()
+    };
+  }
+});
+
+/* const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join("assets", "upload"));
   },
@@ -27,7 +47,7 @@ const storage = multer.diskStorage({
     const ext = extension(file.mimetype);
     cb(null, `${generateCode().toString()}.${ext}`);
   },
-});
+}); */
 
 const fileFilter = (req, file, cb) => {
   if (extension(file.mimetype)) {
